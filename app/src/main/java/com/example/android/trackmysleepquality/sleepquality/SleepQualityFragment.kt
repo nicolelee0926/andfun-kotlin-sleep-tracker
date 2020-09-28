@@ -17,9 +17,12 @@
 package com.example.android.trackmysleepquality.sleepquality
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -65,6 +68,21 @@ class SleepQualityFragment : Fragment() {
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.sleepQualityViewModel = sleepQualityViewModel
+
+        binding.informationEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                sleepQualityViewModel.information = s.toString()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
 
         // Add an Observer to the state variable for Navigating when a Quality icon is tapped.
         sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
